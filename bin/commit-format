@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$LOAD_PATH << File.expand_path(File.join(__dir__, "..", "lib"))
+
+require "commit_format"
+
+CommitFormat.new(ARGV).execute
