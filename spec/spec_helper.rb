@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "commit_format"
+require "commit_format/cli"
 
 ROOT_DIR = File.expand_path("..", __dir__)
 SPEC_DIR = File.expand_path(__dir__)

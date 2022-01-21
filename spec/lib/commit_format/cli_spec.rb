@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CommitFormat do
+RSpec.describe CommitFormat::Cli do
   describe "without an argument" do
     it "formats the last commit" do
       test_dir = "last_commit"
@@ -107,7 +107,7 @@ RSpec.describe CommitFormat do
   def run(dir_name, args = [])
     capture_stdout do
       in_repository dir_name do
-        CommitFormat.new(args).execute
+        CommitFormat::Cli.new(args).execute
       end
     end
   end

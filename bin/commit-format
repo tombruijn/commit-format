@@ -4,5 +4,6 @@
 $LOAD_PATH << File.expand_path(File.join(__dir__, "..", "lib"))
 
 require "commit_format"
+require "commit_format/cli"
 
-CommitFormat.new(ARGV).execute
+CommitFormat::Cli.new(ARGV).execute
