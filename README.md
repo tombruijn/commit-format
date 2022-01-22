@@ -1,6 +1,7 @@
 # Commit format
 
-Commit format is a formatter for commits to paste into a Git Pull Request description.
+Commit format is a formatter for commits to paste into a Git Pull Request
+description.
 
 ## Installation
 
@@ -10,20 +11,28 @@ Commit format is a formatter for commits to paste into a Git Pull Request descri
 ## Usage
 
 ```
+# Print all commits since the default branch
+commit-format
+
+# Copy the output directly onto the clipboard on macOS
+commit-format | pbcopy
+
 # Print the range of formatted commits
 commit-format main..feature-branch
 
-# Copy the output directly onto the clipboard
-commit-format main..feature-branch | pbcopy
-
 # Print the last 5 commits
 commit-format -n 5
+
+# Print all commits since selected branch
+commit-format -b main
+commit-format -b feature-branch
 ```
 
 ## Features
 
-- Turns the subject into a markdown heading
-- Indents all headings in the message body on level lower. Heading level 2 becomes heading level 3.
+- Turns each commit subject into a markdown heading.
+- Indents all headings in the message body on level lower. Heading level 2
+  becomes heading level 3, etc.
 
 ## Resources
 

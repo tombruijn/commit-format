@@ -22,8 +22,19 @@ module CommitFormat
     def arguments(options)
       args = []
       args << "--max-count=#{options[:limit]}" if options.key?(:limit)
-      args << options[:selector] if options.key?(:selector)
-      args.join(" ")
+      args << main_argument(options)
+      args.compact.join(" ")
+    end
+
+    def main_argument(options)
+      return options[:selector] if options.key?(:selector)
+      return if options.key?(:limit)
+
+      if options.key?(:base_branch)
+        "#{options[:base_branch]}..HEAD"
+      else
+        "#{options[:init_default_branch]}..HEAD"
+      end
     end
   end
 end

@@ -9,6 +9,7 @@ module RepositoryHelper
     FileUtils.mkdir_p directory
     Dir.chdir directory do
       `git init .`
+      `git branch -m main`
       create_commit "Initial commit", ""
       yield
     end
@@ -21,6 +22,10 @@ module RepositoryHelper
 
   def directory_path(dir_name)
     File.join(REPOSITORY_TEST_DIR, dir_name)
+  end
+
+  def checkout_branch(name)
+    `git checkout -b "#{name}"`
   end
 
   def create_commit(subject, message)

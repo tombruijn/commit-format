@@ -56,16 +56,22 @@ module CommitFormat
         ) do |count|
           options[:limit] = count
         end
+        parser.on(
+          "-b",
+          "--base-branch <branch>",
+          "Select all commits since selected base branch"
+        ) do |branch|
+          options[:base_branch] = branch
+        end
         parser.on_tail("-h", "--help", "Show this help message") do
           puts parser
           exit 0
         end
       end.parse!(args)
 
+      options[:init_default_branch] = `git config init.defaultbranch`.strip
       if args.any?
         options[:selector] = args.join
-      elsif !options.key?(:limit)
-        options[:selector] = "HEAD~1..HEAD"
       end
       options
     end
