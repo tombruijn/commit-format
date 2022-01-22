@@ -18,6 +18,45 @@ RSpec.describe CommitFormat::Cli do
     end
   end
 
+  describe "with --max-count argument" do
+    it "--max-count 1 formats a single commit" do
+      test_dir = "option_max_count_1"
+      prepare_repository test_dir do
+        create_commit "Commit subject 1", "Commit message body.\nSecond line."
+        create_commit "Commit subject 2", "Commit message body.\nSecond line."
+      end
+
+      output = run(test_dir, ["--max-count=1"])
+      expect(output).to eql(<<~OUTPUT)
+        ## Commit subject 2
+
+        Commit message body.
+        Second line.
+      OUTPUT
+    end
+
+    it "--max-count 2 formats multiple commits" do
+      test_dir = "option_max_count_2"
+      prepare_repository test_dir do
+        create_commit "Commit subject 1", "Commit message body.\nSecond line."
+        create_commit "Commit subject 2", "Commit message body.\nSecond line."
+      end
+
+      output = run(test_dir, ["--max-count=2"])
+      expect(output).to eql(<<~OUTPUT)
+        ## Commit subject 1
+
+        Commit message body.
+        Second line.
+
+        ## Commit subject 2
+
+        Commit message body.
+        Second line.
+      OUTPUT
+    end
+  end
+
   describe "with a single commit argument" do
     it "formats a single commit" do
       test_dir = "single_commit"

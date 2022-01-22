@@ -15,6 +15,9 @@ commit-format main..feature-branch
 
 # Copy the output directly onto the clipboard
 commit-format main..feature-branch | pbcopy
+
+# Print the last 5 commits
+commit-format -n 5
 ```
 
 ## Features
