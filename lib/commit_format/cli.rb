@@ -70,9 +70,7 @@ module CommitFormat
       end.parse!(args)
 
       options[:init_default_branch] = `git config init.defaultbranch`.strip
-      if args.any?
-        options[:selector] = args.join
-      end
+      options[:selector] = args.join if args.any?
       options
     end
   end

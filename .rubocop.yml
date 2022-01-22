@@ -3,6 +3,7 @@ AllCops:
   UseCache: true
   CacheRootDirectory: ./tmp
   NewCops: enable
+  TargetRubyVersion: "2.7.0"
 
 Style/Documentation:
   Enabled: false

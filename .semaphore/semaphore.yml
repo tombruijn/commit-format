@@ -1,0 +1,50 @@
+---
+version: v1.0
+name: Commit Format
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+auto_cancel:
+  running:
+    when: branch != 'main' AND branch != 'develop'
+global_job_config:
+  env_vars:
+  - name: _BUNDLER_CACHE
+    value: v1
+  prologue:
+    commands:
+      - checkout
+      - sem-version ruby $RUBY_VERSION
+      - cache restore $_BUNDLER_CACHE-bundler-$RUBY_VERSION-$(checksum commit_format.gemspec)-$(checksum Gemfile)
+      - bundle install --jobs=3 --retry=3
+      - cache store $_BUNDLER_CACHE-bundler-$RUBY_VERSION-$(checksum commit_format.gemspec)-$(checksum Gemfile) vendor/.bundle
+blocks:
+- name: Test
+  dependencies: []
+  task:
+    prologue:
+      commands:
+        - "git config --global user.email 'test@example.com'"
+        - "git config --global user.name 'John Doe'"
+        - "git config --global init.defaultBranch main"
+    jobs:
+    - name: Test
+      matrix:
+        - env_var: RUBY_VERSION
+          values:
+            - 3.1.0
+            - 3.0.3
+            - 2.7.5
+      commands:
+        - bundle exec rspec
+- name: Linters
+  dependencies: []
+  task:
+    jobs:
+    - name: RuboCop
+      env_vars:
+        - name: RUBY_VERSION
+          value: 3.1.0
+      commands:
+        - bundle exec rubocop

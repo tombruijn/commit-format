@@ -1,2 +1,5 @@
+Gemfile.lock
 spec/examples.txt
 tmp
+vendor
+*.gem

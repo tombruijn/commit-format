@@ -5,8 +5,7 @@ description.
 
 ## Installation
 
-1. Clone this repository.
-2. Add the `bin` directory of this repository to the Shell's PATH.
+1. Run `gem install commit_format`
 
 ## Usage
 
@@ -33,6 +32,31 @@ commit-format -b feature-branch
 - Turns each commit subject into a markdown heading.
 - Indents all headings in the message body on level lower. Heading level 2
   becomes heading level 3, etc.
+
+## Development
+
+- Run `bundle install`
+- Install [mono](https://github.com/appsignal/mono).
+
+### Tracking changes
+
+Use mono to create a changeset per change.
+
+```
+mono changeset add
+```
+
+## Testing
+
+```
+bundle exec rspec
+```
+
+## Publishing
+
+```
+mono publish
+```
 
 ## Resources
 
