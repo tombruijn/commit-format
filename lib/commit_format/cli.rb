@@ -31,22 +31,8 @@ module CommitFormat
 
     def parse_args(args) # rubocop:disable Metrics/MethodLength
       options = {}
-      OptionParser.new do |parser| # rubocop:disable Metrics/BlockLength
-        parser.banner = "Usage: commit-format [options] [commit range]"
-        parser.separator ""
-
-        parser.separator "Examples:"
-        parser.separator "    commit-format HEAD~1..HEAD"
-        parser.separator "        Format the last commit. This is the " \
-          "default behavior."
-        parser.separator ""
-        parser.separator "    commit-format main..branch"
-        parser.separator "        Format the difference between two branches."
-        parser.separator ""
-
-        parser.separator "Arguments:"
-        parser.separator "    <commit range> Range of commits to format."
-        parser.separator ""
+      OptionParser.new do |parser|
+        document_cli(parser)
 
         parser.separator "Options:"
         parser.on(
@@ -72,6 +58,36 @@ module CommitFormat
       options[:init_default_branch] = `git config init.defaultbranch`.strip
       options[:selector] = args.join if args.any?
       options
+    end
+
+    def document_cli(cli) # rubocop:disable Metrics/MethodLength
+      cli.banner = "Usage: commit-format [options] [commit range]"
+      cli.separator ""
+      cli.separator "Examples:"
+      cli.separator "    commit-format"
+      cli.separator "        Print all commits on a feature branch since " \
+        "branching off the default branch"
+      cli.separator "        Only works when not on the default branch"
+      cli.separator ""
+      cli.separator "    commit-format | pbcopy"
+      cli.separator "        Copy the commits to the clipboard on macOS"
+      cli.separator ""
+      cli.separator "    commit-format HEAD~1..HEAD"
+      cli.separator "        Prints the commits in the commit range"
+      cli.separator ""
+      cli.separator "    commit-format main..my-feature"
+      cli.separator "        Prints the commits new in the 'my-feature' branch"
+      cli.separator ""
+      cli.separator "    commit-format -n 5"
+      cli.separator "        Print the last 5 commits"
+      cli.separator ""
+      cli.separator "    commit-format -b main"
+      cli.separator "    commit-format -b intermediate-feature-branch"
+      cli.separator "        Print all new commits since selected branch"
+      cli.separator ""
+      cli.separator "Arguments:"
+      cli.separator "    <commit range> Range of commits to format."
+      cli.separator ""
     end
   end
 end

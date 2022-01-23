@@ -10,19 +10,23 @@ description.
 ## Usage
 
 ```
-# Print all commits since the default branch
+# Print all commits on feature branch since branching off the default branch
+# Only works when not on the default branch
 commit-format
 
 # Copy the output directly onto the clipboard on macOS
 commit-format | pbcopy
 
 # Print the range of formatted commits
-commit-format main..feature-branch
+commit-format HEAD~1..HEAD
+
+# Prints the commits new in the 'my-feature' branch
+commit-format main..my-feature
 
 # Print the last 5 commits
 commit-format -n 5
 
-# Print all commits since selected branch
+# Print all new commits since selected base branch
 commit-format -b main
 commit-format -b feature-branch
 ```
