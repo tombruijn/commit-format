@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.description = "Commit-format is a utility to make it easier generating " \
     "Pull Request descriptions from multiple commits."
   gem.homepage = "https://github.com/tombruijn/commit-format"
-  gem.license = "MIT"
+  gem.license = "Hippocratic-2.1"
 
   gem.files = `git ls-files`
     .split($\) # rubocop:disable Style/SpecialGlobalVars
