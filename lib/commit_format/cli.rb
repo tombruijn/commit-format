@@ -49,6 +49,10 @@ module CommitFormat
         ) do |branch|
           options[:base_branch] = branch
         end
+        parser.on("-v", "--version", "Print version number") do
+          puts CommitFormat::VERSION
+          exit 0
+        end
         parser.on_tail("-h", "--help", "Show this help message") do
           puts parser
           exit 0

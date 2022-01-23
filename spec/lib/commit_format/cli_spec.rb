@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe CommitFormat::Cli do
+  describe "with --version flag" do
+    it "prints the version number" do
+      output = run_version
+      expect(output).to eql(CommitFormat::VERSION)
+    end
+  end
+
   describe "without an argument" do
     it "formats all commits to main branch" do
       test_dir = "without_argument"
@@ -187,6 +194,12 @@ RSpec.describe CommitFormat::Cli do
       in_repository dir_name do
         CommitFormat::Cli.new(args).execute
       end
+    end
+  end
+
+  def run_version
+    capture_stdout do
+      CommitFormat::Cli.new(["--version"]).execute
     end
   end
 end
