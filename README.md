@@ -1,6 +1,6 @@
-# Commit format
+# Commit Format
 
-Commit format is a formatter for commits to paste into a Git Pull Request
+Commit Format is a formatter for commits to paste into a Git Pull Request
 description.
 
 ## Installation
