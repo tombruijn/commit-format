@@ -28,7 +28,7 @@ Gem::Specification.new do |gem|
     "source_code_uri" => "https://github.com/tombruijn/commit-format"
   }
 
-  gem.add_development_dependency "pry", "0.14.1"
+  gem.add_development_dependency "debug", "1.6.2"
   gem.add_development_dependency "rspec", "3.10.0"
   gem.add_development_dependency "rubocop", "1.25.0"
 end
