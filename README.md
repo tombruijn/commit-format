@@ -29,6 +29,10 @@ commit-format -n 5
 # Print all new commits since selected base branch
 commit-format -b main
 commit-format -b feature-branch
+
+# Print all commits with text lines joined into a paragraph
+commit-format --paragraph
+commit-format -p
 ```
 
 ## Features
@@ -36,6 +40,17 @@ commit-format -b feature-branch
 - Turns each commit subject into a markdown heading.
 - Indents all headings in the message body on level lower. Heading level 2
   becomes heading level 3, etc.
+- Join text lines together as continuous paragraphs for easier reading in Pull
+  Requests. Markdown syntax like code block, blockquotes, lists, tables, etc.
+  are all kept in their original format.
+  ```
+  # For example:
+  A commit message with multiple text lines
+  across multiple lines.
+
+  # Becomes
+  A commit message with multiple text lines across multiple line.
+  ```
 
 ## Development
 

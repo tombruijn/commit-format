@@ -28,7 +28,9 @@ module RepositoryHelper
     `git checkout -b "#{name}"`
   end
 
-  def create_commit(subject, message)
-    `git commit --allow-empty -m "#{subject}" -m "#{message}"`
+  def create_commit(subject, message, verbatim: false)
+    options = []
+    options << "--cleanup verbatim" if verbatim
+    `git commit --allow-empty -m "#{subject}" -m '#{message}' #{options.join(" ")}`
   end
 end

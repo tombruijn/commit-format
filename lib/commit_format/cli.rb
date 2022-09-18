@@ -12,7 +12,11 @@ module CommitFormat
       parser = Parser.new(@args)
       commits = parser.commits
 
-      formatter = Formatter.new(commits)
+      formatter =
+        Formatter.new(
+          commits,
+          :paragraph => @args.fetch(:paragraph, false)
+        )
       formatted_commits = formatter.formatted_commits
       print_formatted_commits(formatted_commits)
     end
@@ -31,10 +35,17 @@ module CommitFormat
 
     def parse_args(args) # rubocop:disable Metrics/MethodLength
       options = {}
-      OptionParser.new do |parser|
+      OptionParser.new do |parser| # rubocop:disable Metrics/BlockLength
         document_cli(parser)
 
         parser.separator "Options:"
+        parser.on(
+          "-p",
+          "--paragraph",
+          "Join paragraph lines into one line"
+        ) do |paragraph|
+          options[:paragraph] = paragraph
+        end
         parser.on(
           "-n",
           "--max-count <number>",
