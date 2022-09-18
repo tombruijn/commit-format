@@ -4,7 +4,7 @@ RSpec.describe CommitFormat::Cli do
   describe "with --version flag" do
     it "prints the version number" do
       output = run_version
-      expect(output).to eql(CommitFormat::VERSION)
+      expect(output.strip).to eql(CommitFormat::VERSION)
     end
   end
 
@@ -198,8 +198,6 @@ RSpec.describe CommitFormat::Cli do
   end
 
   def run_version
-    capture_stdout do
-      CommitFormat::Cli.new(["--version"]).execute
-    end
+    `bin/commit-format --version`
   end
 end
