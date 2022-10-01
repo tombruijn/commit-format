@@ -122,14 +122,15 @@ module CommitFormat
         HEADING_LINE_CHARS.include?(uniq_chars.first)
       end
 
-      def fixed_line?(string)
+      def fixed_line?(string) # rubocop:disable Metrics/CyclomaticComplexity
         string.start_with?("  ") || # Indented line
           string.start_with?("\t") || # Indented line
           string.start_with?("- ") || # Unordered list item
           string.start_with?("* ") || # Unordered list item
           string.start_with?("|") || # Table
           string.start_with?("> ") || # Blockquote
-          string.start_with?(/\d+\. /) # Numbered list item
+          string.start_with?(/\d+\. /) || # Numbered list item
+          string.start_with?(/\[[^\]]+\]:\s.+/) # Link reference
       end
 
       def clear_paragraph!

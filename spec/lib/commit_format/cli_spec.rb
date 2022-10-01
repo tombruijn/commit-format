@@ -256,6 +256,37 @@ RSpec.describe CommitFormat::Cli do
       OUTPUT
     end
 
+    it "keeps link reference formatting" do
+      test_dir = "paragraph_flag_link_references"
+      prepare_repository test_dir do
+        create_commit "Commit subject 1", "Commit message body.\nSecond line."
+        checkout_branch "my-branch"
+        create_commit "Commit subject 2",
+          <<~MESSAGE
+            Commit message body.
+            [Link label](http://localhost:3000/path1) extra part.
+            Third line.
+
+            [Link name 1]: http://localhost:3000/path1
+            [Link name 2]: http://localhost:3000/path2
+
+            Footer
+          MESSAGE
+      end
+
+      output = run(test_dir, ["--paragraph"])
+      expect(output).to eql(<<~OUTPUT)
+        ## Commit subject 2
+
+        Commit message body. [Link label](http://localhost:3000/path1) extra part. Third line.
+
+        [Link name 1]: http://localhost:3000/path1
+        [Link name 2]: http://localhost:3000/path2
+
+        Footer
+      OUTPUT
+    end
+
     it "keeps tables formatting" do
       test_dir = "paragraph_flag_tables"
       prepare_repository test_dir do
