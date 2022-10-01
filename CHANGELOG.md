@@ -1,5 +1,11 @@
 # Commit Format
 
+## 0.2.1
+
+### Fixed
+
+- [bd1a3d5](https://github.com/tombruijn/commit-format/commit/bd1a3d5a7466cf8c18634474d009021c034d9b15) patch - Paragraph flag doesn't join link references on multiple lines.
+
 ## 0.2.0
 
 ### Added
